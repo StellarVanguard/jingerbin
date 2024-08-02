@@ -1,1 +1,7 @@
-
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const userInput = params.get('input');
+    // Escape HTML characters to prevent XSS
+    const escapedInput = userInput.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    document.getElementById('output').innerText = escapedInput;
+</script>
