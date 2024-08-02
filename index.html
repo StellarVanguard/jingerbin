@@ -1,7 +1,23 @@
-<script>
-    const params = new URLSearchParams(window.location.search);
-    const userInput = params.get('input');
-    // Escape HTML characters to prevent XSS
-    const escapedInput = userInput.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    document.getElementById('output').innerText = escapedInput;
-</script>
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSS Test Page</title>
+</head>
+<body>
+    <h1>Welcome to the XSS Test Page</h1>
+    <form method="GET" action="">
+        <input type="text" name="input" placeholder="Enter something" />
+        <button type="submit">Submit</button>
+    </form>
+    <p>Input received: <span id="output"></span></p>
+    <script>
+        // JavaScript to display user input
+        const params = new URLSearchParams(window.location.search);
+        const userInput = params.get('input');
+        document.getElementById('output').innerText = userInput;
+    </script>
+</body>
+</html>
