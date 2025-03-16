@@ -1,0 +1,18 @@
+# app.py
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/purchase', methods=['POST'])
+def purchase():
+    name = request.form.get('name')
+    email = request.form.get('email')
+    service = request.form.get('selected_service')
+
+    # Process the purchase (e.g., store in database, send email)
+    print(f"Purchase: {name}, {email}, {service}") #replace with actual logic.
+
+    return jsonify({'message': 'Purchase successful'})
+
+if __name__ == '__main__':
+    app.run(debug=True)
