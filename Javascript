@@ -1,0 +1,36 @@
+// script.js
+document.addEventListener('DOMContentLoaded', function() {
+    const purchaseButtons = document.querySelectorAll('.purchase-button');
+    const purchaseForm = document.getElementById('purchase-form');
+    const selectedServiceInput = document.getElementById('selected-service');
+    const servicesSection = document.getElementById('services');
+    purchaseButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const service = this.getAttribute('data-service');
+            selectedServiceInput.value = service;
+            servicesSection.style.display = 'none';
+            purchaseForm.style.display = 'block';
+        });
+    });
+
+    const purchaseFormData = document.getElementById('purchase-form-data');
+    purchaseFormData.addEventListener('submit', function(event){
+        event.preventDefault();
+        const formData = new FormData(purchaseFormData);
+        fetch('/purchase', { //replace with your backend endpoint
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            alert("Purchase submitted!");
+            purchaseForm.style.display = 'none';
+            servicesSection.style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("An error occurred");
+        });
+    });
+});
